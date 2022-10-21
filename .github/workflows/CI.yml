@@ -29,5 +29,5 @@ jobs:
         $CONDA/bin/pytest
     - name: Create coverage commentator
       run: |
-        coverage rn -m $CONDA/bin/pytest --junitxml=pytest_report.xml
+        coverage run -m $CONDA/bin/pytest * --junitxml=pytest_report.xml
         coverage report
