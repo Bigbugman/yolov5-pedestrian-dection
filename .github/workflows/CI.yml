@@ -28,7 +28,7 @@ jobs:
         conda install pytest
         conda install pytest-cov
         $CONDA/bin/pytest
-    - name: Create coverage commentator
-      run: |
-        $CONDA/bin/coverage run -m pytest * --junitxml=pytest_report.xml
-        $CONDA/bin/coverage report
+#     - name: Create coverage commentator
+#       run: |
+#         $CONDA/bin/coverage run -m pytest * --junitxml=pytest_report.xml
+#         $CONDA/bin/coverage report
