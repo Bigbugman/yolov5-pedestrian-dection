@@ -26,6 +26,7 @@ jobs:
     - name: Test with pytest
       run: |
         conda install pytest
+        conda install pytest-cov
         $CONDA/bin/pytest
     - name: Create coverage commentator
       run: |
