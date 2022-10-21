@@ -6,7 +6,7 @@ dependencies:
   - pandas
   - matplotlib
   - pip
-  - python=3.9.*      
+  - python=3.10.*      
   - python-dateutil
   - pytz
   - scikit-learn
@@ -18,7 +18,7 @@ dependencies:
   - html5lib
   - beautifulsoup4
   - jupyter
+  - pytorch
   - pip:
     - pmdarima        
-    - pytorch
     - keras
