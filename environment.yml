@@ -1,0 +1,24 @@
+name: Python3.10.8 
+channels:
+  - defaults
+dependencies:
+  - numpy
+  - pandas
+  - matplotlib
+  - pip
+  - python=3.10.*      
+  - python-dateutil
+  - pytz
+  - scikit-learn
+  - scipy
+  - statsmodels
+  - xlrd
+  - openpyxl
+  - lxml
+  - html5lib
+  - beautifulsoup4
+  - jupyter
+  - pytorch
+  - pip:
+    - pmdarima        
+    - keras
