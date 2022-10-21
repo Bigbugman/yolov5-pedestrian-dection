@@ -1,2 +1,2 @@
 # Comp9444-project
-Self-automated cars
+Object detection on self-automated cars
