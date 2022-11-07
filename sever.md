@@ -2,18 +2,12 @@
 ### Acceleration && Driver 
 
 >Driver  + Cuda + Cudnn have been configured
-> do have to do it agin.
+
  
 
 ### Login 
-``ssh ubuntu@101.35.123.163
-``Chenxiang123
-
-ftp (if you do not want to use git)
-``host: 101.35.125.163
-``password: Chenxiang123   
-``port: 22
-
+ssh ubuntu@101.35.123.163
+Chenxiang123
 
 ### Suggested Workflow 
 
