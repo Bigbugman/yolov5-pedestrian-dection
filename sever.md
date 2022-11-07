@@ -17,7 +17,6 @@ Chenxiang123
 9. run.sh 
    Sample Usage: ./run.sh <xxx.yaml> <epochs> <batch-siz>
 10. https://clear.ml/
-12. Remember to run it at backgroup
 
 ### results
 
@@ -26,3 +25,5 @@ https://clear.ml/
 chenxiang.wang@foxmail.com
 
 Chenxiang123!
+
+### models
