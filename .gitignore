@@ -1,3 +1,12 @@
+# dataset and results
+yolov5/runs/train/exp/
+yolov5/caltech-ped-2
+
+
+
+
+
+
 # Repo-specific GitIgnore ----------------------------------------------------------------------------------------------
 *.jpg
 *.jpeg
