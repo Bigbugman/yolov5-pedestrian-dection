@@ -16,13 +16,11 @@ Chenxiang123
    ```
    git checkout --track origin/xxxx
    ```
-10. merge it with main
-   ```
-   git merge
-   ```
-11. run.sh 
+9. merge it with main
+
+10. ./run.sh 
    Sample Usage: ./run.sh <xxx.yaml> <epochs> <batch-siz>
-10. https://clear.ml/
+11. https://clear.ml/
 
 ### results
 
