@@ -21,7 +21,7 @@ Chenxiang123
    ```
    git checkout --track origin/xxxx
    ```
-   switch brand command,
+   switch existing brand command,
    ```
    git checkout <branch name>
    ```
