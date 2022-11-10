@@ -13,6 +13,11 @@ Chenxiang123
 6. login into server
 7. conda activate comp9444
 8. download your branch
+   update the branch list (update command)
+   ```
+   gith fetch --all
+   ```
+   then, switch to your branch, xxxx is the name of branch (switch command)
    ```
    git checkout --track origin/xxxx
    ```
