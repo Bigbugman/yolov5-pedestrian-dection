@@ -17,9 +17,13 @@ Chenxiang123
    ```
    gith fetch --all
    ```
-   then, switch to your branch, xxxx is the name of branch (switch command)
+   then, 
    ```
    git checkout --track origin/xxxx
+   ```
+   switch brand command,
+   ```
+   git checkout <branch name>
    ```
 9. merge it with main
 
