@@ -24,7 +24,7 @@ Chenxiang123
 9. merge it with main
 
 10. ./run.sh 
-   Sample Usage: ./run.sh <xxx.yaml> <epochs> <batch-siz>
+   Sample Usage: ./run.sh <xxx.yaml>  <epochs>  <batch-siz>
 11. https://clear.ml/
 
 ### results
