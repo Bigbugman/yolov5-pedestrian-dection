@@ -1,0 +1,16 @@
+David:
+vanilla
+
+Richard:
+CBAM
+
+Zhitao Chen:
+SE
+
+Chenxiang Wang:
+ECA
+
+Pinheng Chen: 
+CPD, MobileNet
+
+
