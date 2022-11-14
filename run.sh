@@ -11,4 +11,4 @@ then
 fi
 #python -v
 cd yolov5
-nohup python train.py --data caltech-ped-2/data.yaml --cfg $1 --epochs $2 --weights '' --batch-size $3 >/dev/null 2>&1 &
+nohup python train.py --data data.yaml --cfg $1 --epochs $2 --weights '' --batch-size $3 >/dev/null 2>&1 &
