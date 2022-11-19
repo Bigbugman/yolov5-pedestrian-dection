@@ -8,9 +8,6 @@ yolov5/caltech-ped-2
 
 
 # Repo-specific GitIgnore ----------------------------------------------------------------------------------------------
-*.jpg
-*.jpeg
-*.png
 *.bmp
 *.tif
 *.tiff
