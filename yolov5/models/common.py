@@ -861,6 +861,11 @@ class Classify(nn.Module):
       
       
 class SE(nn.Module):
+  """
+  Reference: [Squeeze-and-Excitation Networks]
+  Links: https://arxiv.org/pdf/1709.01507.pdf
+         https://blog.csdn.net/weixin_43694096/article/details/124443059
+  """
     def __init__(self, c1, c2, ratio=16):
         super(SE, self).__init__()
         #c*1*1
