@@ -859,13 +859,8 @@ class Classify(nn.Module):
             x = torch.cat(x, 1)
         return self.linear(self.drop(self.pool(self.conv(x)).flatten(1)))
       
+      
 class SE(nn.Module):
-    """
-  Reference: [Squeeze-and-Excitation Networks]
-  Links: https://arxiv.org/pdf/1709.01507.pdf
-         https://github.com/hujie-frank/SENet
-         https://blog.csdn.net/weixin_43694096/article/details/124443059
-  """
     def __init__(self, c1, c2, ratio=16):
         super(SE, self).__init__()
         #c*1*1
@@ -922,13 +917,13 @@ class space_to_depth(nn.Module):
          https://github.com/labsaint/spd-conv
          https://yolov5.blog.csdn.net/article/details/126398068?spm=1001.2014.3001.5502
   """
-    # Changing the dimension of the Tensor
-    def __init__(self, dimension=1):
-        super().__init__()
-        self.d = dimension
+  # Changing the dimension of the Tensor
+  def __init__(self, dimension=1):
+      super().__init__()
+      self.d = dimension
 
-    def forward(self, x):
-         return torch.cat([x[..., ::2, ::2], x[..., 1::2, ::2], x[..., ::2, 1::2], x[..., 1::2, 1::2]], 1)
+  def forward(self, x):
+        return torch.cat([x[..., ::2, ::2], x[..., 1::2, ::2], x[..., ::2, 1::2], x[..., 1::2, 1::2]], 1)
 
 # Following are mobilenetv3 part
 class h_sigmoid(nn.Module):
@@ -937,42 +932,42 @@ class h_sigmoid(nn.Module):
   Links: https://arxiv.org/pdf/1905.02244.pdf
          https://blog.csdn.net/weixin_44808161/article/details/125759652
   """
-    def __init__(self, inplace=True):
-        super(h_sigmoid, self).__init__()
-        self.relu = nn.ReLU6(inplace=inplace)
- 
-    def forward(self, x):
-        return self.relu(x + 3) / 6
+  def __init__(self, inplace=True):
+      super(h_sigmoid, self).__init__()
+      self.relu = nn.ReLU6(inplace=inplace)
+
+  def forward(self, x):
+      return self.relu(x + 3) / 6
  
  
 class h_swish(nn.Module):
-    def __init__(self, inplace=True):
-        super(h_swish, self).__init__()
-        self.sigmoid = h_sigmoid(inplace=inplace)
- 
-    def forward(self, x):
-        return x * self.sigmoid(x)
+  def __init__(self, inplace=True):
+      super(h_swish, self).__init__()
+      self.sigmoid = h_sigmoid(inplace=inplace)
+
+  def forward(self, x):
+      return x * self.sigmoid(x)
  
  
 class SELayer(nn.Module):
-    def __init__(self, channel, reduction=4):
-        super(SELayer, self).__init__()
-        # Squeeze
-        self.avg_pool = nn.AdaptiveAvgPool2d(1)
-        # Excitation(FC+ReLU+FC+Sigmoid)
-        self.fc = nn.Sequential(
-            nn.Linear(channel, channel // reduction),
-            nn.ReLU(inplace=True),
-            nn.Linear(channel // reduction, channel),
-            h_sigmoid()
-        )
- 
-    def forward(self, x):
-        b, c, _, _ = x.size()
-        y = self.avg_pool(x)
-        y = y.view(b, c)
-        y = self.fc(y).view(b, c, 1, 1) 
-        return x * y
+  def __init__(self, channel, reduction=4):
+      super(SELayer, self).__init__()
+      # Squeeze
+      self.avg_pool = nn.AdaptiveAvgPool2d(1)
+      # Excitation(FC+ReLU+FC+Sigmoid)
+      self.fc = nn.Sequential(
+          nn.Linear(channel, channel // reduction),
+          nn.ReLU(inplace=True),
+          nn.Linear(channel // reduction, channel),
+          h_sigmoid()
+      )
+
+  def forward(self, x):
+      b, c, _, _ = x.size()
+      y = self.avg_pool(x)
+      y = y.view(b, c)
+      y = self.fc(y).view(b, c, 1, 1) 
+      return x * y
  
  
 class conv_bn_hswish(nn.Module):
@@ -985,62 +980,61 @@ class conv_bn_hswish(nn.Module):
             h_swish()
         )
     """
- 
     def __init__(self, c1, c2, stride):
-        super(conv_bn_hswish, self).__init__()
-        self.conv = nn.Conv2d(c1, c2, 3, stride, 1, bias=False)
-        self.bn = nn.BatchNorm2d(c2)
-        self.act = h_swish()
- 
+      super(conv_bn_hswish, self).__init__()
+      self.conv = nn.Conv2d(c1, c2, 3, stride, 1, bias=False)
+      self.bn = nn.BatchNorm2d(c2)
+      self.act = h_swish()
+
     def forward(self, x):
-        return self.act(self.bn(self.conv(x)))
- 
+      return self.act(self.bn(self.conv(x)))
+
     def fuseforward(self, x):
-        return self.act(self.conv(x))
+      return self.act(self.conv(x))
  
  
 class MobileNet_Block(nn.Module):
-    def __init__(self, inp, oup, hidden_dim, kernel_size, stride, use_se, use_hs):
-        super(MobileNet_Block, self).__init__()
-        assert stride in [1, 2]
- 
-        self.identity = stride == 1 and inp == oup
- 
-        if inp == hidden_dim:
-            self.conv = nn.Sequential(
-                # dw
-                nn.Conv2d(hidden_dim, hidden_dim, kernel_size, stride, (kernel_size - 1) // 2, groups=hidden_dim,
-                          bias=False),
-                nn.BatchNorm2d(hidden_dim),
-                h_swish() if use_hs else nn.ReLU(inplace=True),
-                # Squeeze-and-Excite
-                SELayer(hidden_dim) if use_se else nn.Sequential(),
-                # pw-linear
-                nn.Conv2d(hidden_dim, oup, 1, 1, 0, bias=False),
-                nn.BatchNorm2d(oup),
-            )
-        else:
-            
-            self.conv = nn.Sequential(
-                # pw
-                nn.Conv2d(inp, hidden_dim, 1, 1, 0, bias=False),
-                nn.BatchNorm2d(hidden_dim),
-                h_swish() if use_hs else nn.ReLU(inplace=True),
-                # dw
-                nn.Conv2d(hidden_dim, hidden_dim, kernel_size, stride, (kernel_size - 1) // 2, groups=hidden_dim,
-                          bias=False),
-                nn.BatchNorm2d(hidden_dim),
-                # Squeeze-and-Excite
-                SELayer(hidden_dim) if use_se else nn.Sequential(),
-                h_swish() if use_hs else nn.ReLU(inplace=True),
-                # pw-linear
-                nn.Conv2d(hidden_dim, oup, 1, 1, 0, bias=False),
-                nn.BatchNorm2d(oup),
-            )
- 
-    def forward(self, x):
-        y = self.conv(x)
-        if self.identity:
-            return x + y
-        else:
-            return y
+  def __init__(self, inp, oup, hidden_dim, kernel_size, stride, use_se, use_hs):
+      super(MobileNet_Block, self).__init__()
+      assert stride in [1, 2]
+
+      self.identity = stride == 1 and inp == oup
+
+      if inp == hidden_dim:
+          self.conv = nn.Sequential(
+              # dw
+              nn.Conv2d(hidden_dim, hidden_dim, kernel_size, stride, (kernel_size - 1) // 2, groups=hidden_dim,
+                        bias=False),
+              nn.BatchNorm2d(hidden_dim),
+              h_swish() if use_hs else nn.ReLU(inplace=True),
+              # Squeeze-and-Excite
+              SELayer(hidden_dim) if use_se else nn.Sequential(),
+              # pw-linear
+              nn.Conv2d(hidden_dim, oup, 1, 1, 0, bias=False),
+              nn.BatchNorm2d(oup),
+          )
+      else:
+          
+          self.conv = nn.Sequential(
+              # pw
+              nn.Conv2d(inp, hidden_dim, 1, 1, 0, bias=False),
+              nn.BatchNorm2d(hidden_dim),
+              h_swish() if use_hs else nn.ReLU(inplace=True),
+              # dw
+              nn.Conv2d(hidden_dim, hidden_dim, kernel_size, stride, (kernel_size - 1) // 2, groups=hidden_dim,
+                        bias=False),
+              nn.BatchNorm2d(hidden_dim),
+              # Squeeze-and-Excite
+              SELayer(hidden_dim) if use_se else nn.Sequential(),
+              h_swish() if use_hs else nn.ReLU(inplace=True),
+              # pw-linear
+              nn.Conv2d(hidden_dim, oup, 1, 1, 0, bias=False),
+              nn.BatchNorm2d(oup),
+          )
+
+  def forward(self, x):
+      y = self.conv(x)
+      if self.identity:
+          return x + y
+      else:
+          return y
