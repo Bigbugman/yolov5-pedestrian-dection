@@ -1,3 +1,7 @@
+"""
+Reference: https://blog.csdn.net/weixin_43694096/article/details/124443059
+"""
+
 # YOLOv5 🚀 by Ultralytics, GPL-3.0 license
 
 # Parameters
