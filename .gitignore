@@ -12,9 +12,6 @@ yolov5/caltech-ped-2
 *.tif
 *.tiff
 *.heic
-*.JPG
-*.JPEG
-*.PNG
 *.BMP
 *.TIF
 *.TIFF
