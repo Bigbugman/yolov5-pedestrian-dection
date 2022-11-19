@@ -859,9 +859,8 @@ class Classify(nn.Module):
             x = torch.cat(x, 1)
         return self.linear(self.drop(self.pool(self.conv(x)).flatten(1)))
       
-      
 class SE(nn.Module):
-  """
+    """
   Reference: [Squeeze-and-Excitation Networks]
   Links: https://arxiv.org/pdf/1709.01507.pdf
          https://github.com/hujie-frank/SENet
