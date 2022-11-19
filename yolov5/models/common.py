@@ -867,7 +867,7 @@ class SE(nn.Module):
          https://blog.csdn.net/weixin_43694096/article/details/124443059
   """
   
-    def __init__(self, c1, c2, ratio=16):
+  def __init__(self, c1, c2, ratio=16):
         super(SE, self).__init__()
         #c*1*1
         self.avgpool = nn.AdaptiveAvgPool2d(1)
@@ -875,7 +875,7 @@ class SE(nn.Module):
         self.relu = nn.ReLU(inplace=True)
         self.l2 = nn.Linear(c1 // ratio, c1, bias=False)
         self.sig = nn.Sigmoid()
-    def forward(self, x):
+  def forward(self, x):
         b, c, _, _ = x.size()
         y = self.avgpool(x).view(b, c)
         y = self.l1(y)
@@ -886,11 +886,10 @@ class SE(nn.Module):
         return x * y.expand_as(x)
 
 class ECA(nn.Module):
-    """
-    Reference: [ECA-Net: Efficient Channel Attention for Deep Convolutional Neural Networks]
-    Links: https://arxiv.org/abs/1910.03151
-           https://github.com/BangguWu/ECANet
-           https://blog.csdn.net/weixin_43694096/article/details/124443059
+    """Constructs a ECA module.
+    Args:
+        channel: Number of channels of the input feature map
+        k_size: Adaptive selection of kernel size
     """
 
     def __init__(self, c1,c2, k_size=3):
@@ -914,7 +913,6 @@ class ECA(nn.Module):
         y = self.sigmoid(y)
 
         return x * y.expand_as(x)
-      
  
 class space_to_depth(nn.Module):
   """
