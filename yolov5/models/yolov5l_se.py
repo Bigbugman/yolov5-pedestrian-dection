@@ -1,3 +1,7 @@
+"""
+Reference from: https://blog.csdn.net/weixin_43694096/article/details/124443059
+"""
+
 # Parameters
 nc: 80  # number of classes
 depth_multiple: 1.00  # model depth multiple
