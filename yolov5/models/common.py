@@ -863,9 +863,9 @@ class Classify(nn.Module):
 class SE(nn.Module):
   """
   Reference: [Squeeze-and-Excitation Networks]
-  Link: https://arxiv.org/pdf/1709.01507.pdf
-        https://github.com/hujie-frank/SENet
-        https://blog.csdn.net/weixin_43694096/article/details/124443059
+  Links: https://arxiv.org/pdf/1709.01507.pdf
+         https://github.com/hujie-frank/SENet
+         https://blog.csdn.net/weixin_43694096/article/details/124443059
   """
     def __init__(self, c1, c2, ratio=16):
         super(SE, self).__init__()
@@ -883,4 +883,34 @@ class SE(nn.Module):
         y = self.l2(y)
         y = self.sig(y)
         y = y.view(b, c, 1, 1)
+        return x * y.expand_as(x)
+
+class ECA(nn.Module):
+    """
+    Reference: [ECA-Net: Efficient Channel Attention for Deep Convolutional Neural Networks]
+    Links: https://arxiv.org/abs/1910.03151
+           https://github.com/BangguWu/ECANet
+           https://blog.csdn.net/weixin_43694096/article/details/124443059
+    """
+
+    def __init__(self, c1,c2, k_size=3):
+        super(ECA, self).__init__()
+        self.avg_pool = nn.AdaptiveAvgPool2d(1)
+        self.conv = nn.Conv1d(1, 1, kernel_size=k_size, padding=(k_size - 1) // 2, bias=False)
+        self.sigmoid = nn.Sigmoid()
+
+    def forward(self, x):
+        # feature descriptor on the global spatial information
+        y = self.avg_pool(x)
+
+        # print(y.shape,y.squeeze(-1).shape,y.squeeze(-1).transpose(-1, -2).shape)
+        # Two different branches of ECA module
+        # 50*C*1*1
+        #50*C*1
+        #50*1*C
+        y = self.conv(y.squeeze(-1).transpose(-1, -2)).transpose(-1, -2).unsqueeze(-1)
+
+        # Multi-scale information fusion
+        y = self.sigmoid(y)
+
         return x * y.expand_as(x)
