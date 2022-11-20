@@ -8,6 +8,7 @@ The training data source we have used can be found [here](https://universe.robof
 
 ### Training models
 To replicate our training method of each model, please refer to the folder `train_models/Training_Procedure.ipynb`
+
 We strongly suggest you to run the commands for training in Colab, because you may need to alter the paths in commands for excuting successfully. And we are 100% sure that our commands recorded in the notebook are runable in Colab. By the way, the commands for local machine are runable in our own devices as well.
 
 ### Results
