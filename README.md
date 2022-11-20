@@ -7,7 +7,7 @@ The primary notebook that is of your interest is in `submission.ipynb` which con
 The training data source we have used can be found [here](https://universe.roboflow.com/pionc/caltech-6f68o) for data augmented dataset and [here](https://universe.roboflow.com/visdronedataset/caltech-ped) for the original dataset.
 
 ### Training models
-To replicate our training method of each model, please refer to the folder `train_models/train.ipynb`
+To replicate our training method of each model, please refer to the folder `train_models/Training_Procedure.ipynb`
 
 ### Results
 The results of each model can be found in `results/runs/<result_type>/<model_name>` and contains the result of our training outcome that our analysis is based on.
