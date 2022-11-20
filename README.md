@@ -1,7 +1,10 @@
 # Comp9444-project
 ### Object detection on self-automated cars
 
-The primary notebook that is of your interest is in `submission.ipynb` which contains descriptions of our problem statement, data sources used, selection of models, results and discussion. Models that were used in this project, and the code used to train each model is found in a seperate folder called `train/models/` with logs of our training evidence.
+Autonomous driving is one of the popular applications of neural networks and deep learning. Pedestrian detection in real-time is one of the most important topics. It has to be applied carefully due to the issue of safety. Nowadays, although there are many methods, there is improvement.
+
+Complex models that are two-layered such as r-cnn and its variants, require significant amounts of time to do pedestrian detection. Light frameworks that are one-layered like MobileNetV3 and the Yolo series can detect in real-time however, perform worse than the traditional two-layered models.
+
 
 ### Training dataset
 The training data source we have used can be found [here](https://universe.roboflow.com/pionc/caltech-6f68o) for data augmented dataset and [here](https://universe.roboflow.com/visdronedataset/caltech-ped) for the original dataset.
