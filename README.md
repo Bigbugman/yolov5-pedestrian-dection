@@ -3,16 +3,14 @@
 
 The primary notebook that is of your interest is in `submission.ipynb` which contains descriptions of our problem statement, data sources used, selection of models, results and discussion. Models that were used in this project, and the code used to train each model is found in a seperate folder called `models/` with logs of our training evidence.
 
-### training dataset
+### Training dataset
 The training data source we have used can be found [here](https://universe.roboflow.com/pionc/caltech-6f68o) for data augmented dataset and [here](https://universe.roboflow.com/visdronedataset/caltech-ped) for the original dataset.
+
+### Training models
+To replicate our training method of each model, please refer to the folder `train/`
 
 ### Results
 The results of each model can be found in `results/<model_name>` and contains the result of our training outcome that our analysis is based on.
-
-To replicate our training method of each model, please use the command 
-```
-python3 yolov5... 加一下
-```
 
 ### References: 
 Yolov5:
