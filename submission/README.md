@@ -1,4 +1,4 @@
-# Comp9444-project
+
 ### Object detection on self-automated cars
 
 The primary notebook that is of your interest is in `submission.ipynb` which contains descriptions of our problem statement, data sources used, selection of models, results and discussion. Models that were used in this project, and the code used to train each model is found in a seperate folder called `train/models/` with logs of our training evidence.
