@@ -1,4 +1,4 @@
-# Comp9444-project
+
 ### Object detection on self-automated cars
 
 Autonomous driving is one of the popular applications of neural networks and deep learning. Pedestrian detection in real-time is one of the most important topics. It has to be applied carefully due to the issue of safety. Nowadays, although there are many methods, there is improvement.
